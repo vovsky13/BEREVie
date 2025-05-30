@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Пивная доставка</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       color: white;
-      background: url('background.jpg') no-repeat center center fixed;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/background.jpg') no-repeat center center fixed;
       background-size: cover;
       text-align: center;
       padding: 20px;
       background-color: #0d1b2a;
-      position: relative;
+      min-height: 100vh;
     }
     .lang-toggle {
       position: absolute;
@@ -33,17 +36,40 @@
     .lang-toggle:hover {
       background: rgba(255, 158, 0, 0.3);
     }
+    .header {
+      margin: 50px auto 20px;
+      padding: 20px;
+      background: rgba(13, 27, 42, 0.8);
+      border-radius: 15px;
+      max-width: 800px;
+      border: 2px solid #ff9e00;
+      position: relative;
+    }
+    h1 {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      margin-top: 0;
+    }
+    .price-tag {
+      font-size: 1.4em;
+      background: linear-gradient(to right, #f8b500, #f8a400);
+      color: #222;
+      padding: 8px 20px;
+      border-radius: 30px;
+      display: inline-block;
+      margin: 10px auto 20px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border: 2px solid white;
+    }
     .beer-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
-      margin-top: 60px;
+      margin: 30px auto;
       max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
     }
-    .beer {
+    .beer-card {
       background: rgba(0, 0, 0, 0.7);
       border-radius: 15px;
       padding: 20px;
@@ -51,39 +77,62 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       border: 2px solid #ff9e00;
       transition: transform 0.3s ease;
-      position: relative;
-      cursor: pointer;
     }
-    .beer:hover {
-      transform: translateY(-10px);
-      background: rgba(30, 30, 30, 0.8);
+    .beer-card:hover {
+      transform: translateY(-5px);
     }
-    .beer img {
+    .beer-image {
       width: 100%;
-      max-height: 300px;
+      height: 250px;
       object-fit: contain;
       border-radius: 10px;
       border: 1px solid #444;
-      transition: all 0.3s ease;
+      cursor: pointer;
     }
-    .beer h3 {
+    .beer-title {
       margin: 15px 0 5px;
       font-size: 1.8em;
       color: #ff9e00;
     }
-    .beer .type {
+    .beer-type {
       font-weight: bold;
       font-size: 1.2em;
       margin: 10px 0;
     }
-    .beer .stats {
+    .beer-stats {
       background: rgba(255, 158, 0, 0.2);
       padding: 8px;
       border-radius: 8px;
       margin: 10px 0;
     }
+    .beer-desc {
+      font-style: italic;
+      min-height: 60px;
+    }
+    .order-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .order-btn {
+      padding: 8px 15px;
+      background: linear-gradient(45deg, #ff9e00, #ff6b00);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9em;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      flex: 1;
+      max-width: 120px;
+    }
+    .order-btn:hover {
+      background: linear-gradient(45deg, #ff6b00, #ff9e00);
+      transform: scale(1.05);
+    }
     .contact {
-      margin: 40px 0;
+      margin: 30px 0;
     }
     .contact a {
       display: inline-block;
@@ -96,86 +145,17 @@
       font-size: 1.1em;
       transition: all 0.3s ease;
       font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .contact a:hover {
       background: linear-gradient(45deg, #ff6b00, #ff9e00);
       transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    }
-    .price-tag {
-      font-size: 1.4em;
-      background: linear-gradient(to right, #f8b500, #f8a400);
-      color: #222;
-      padding: 8px 20px;
-      border-radius: 30px;
-      display: inline-block;
-      margin: 20px auto;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      border: 2px solid white;
-    }
-    .header {
-      margin-bottom: 10px;
-      padding: 20px;
-      background: rgba(13, 27, 42, 0.8);
-      border-radius: 15px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      border: 2px solid #ff9e00;
-      position: relative;
-      padding-top: 50px;
-    }
-    h1 {
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-    .beer-order {
-      display: none;
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.9);
-      border-radius: 10px;
-      padding: 15px;
-      width: 90%;
-      z-index: 2;
-      border: 2px solid #ff9e00;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    }
-    .beer-order a {
-      display: inline-block;
-      margin: 5px;
-      padding: 8px 15px;
-      background: linear-gradient(45deg, #ff9e00, #ff6b00);
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 0.9em;
-      transition: all 0.3s ease;
-      font-weight: bold;
-    }
-    .beer-order a:hover {
-      background: linear-gradient(45deg, #ff6b00, #ff9e00);
-      transform: scale(1.05);
-    }
-    .beer.active .beer-order {display: block;
-      animation: fadeIn 0.3s ease;
-    }
-    .beer.active {
-      padding-bottom: 90px;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; bottom: -50px; }
-      to { opacity: 1; bottom: -20px; }
     }
     @media (max-width: 600px) {
       .beer-container {
         flex-direction: column;
         align-items: center;
       }
-      .beer {
+      .beer-card {
         width: 90%;
       }
       .lang-toggle {
@@ -183,6 +163,9 @@
         right: 10px;
         font-size: 0.8em;
         padding: 6px 12px;
+      }
+      .header {
+        margin-top: 40px;
       }
     }
   </style>
@@ -196,40 +179,41 @@
   </div>
 
   <div class="beer-container">
-    <div class="beer" onclick="toggleBeerOrder(this)">
-      <img src="helios.png" alt="Пиво HELIOS"/>
-      <h3>HELIOS</h3>
-      <div class="type">Lager · Светлое</div>
-      <div class="stats">Алк. 4.5% · IBU 18</div>
-      <p>Освежающий светлый лагер с мягким вкусом и хмельным ароматом</p>
+    <div class="beer-card">
+      <img src="images/helios.png" alt="Пиво HELIOS" class="beer-image"/>
+      <h3 class="beer-title">HELIOS</h3>
+      <div class="beer-type">Lager · Светлое</div>
+      <div class="beer-stats">Алк. 4.5% · IBU 18</div>
+      <p class="beer-desc" id="helios-desc">Освежающий светлый лагер с мягким вкусом и хмельным ароматом</p>
       
-      <div class="beer-order">
-        <a href="viber://chat?number=%2B37378022501" target="_blank" id="viber1">Viber</a>
-        <a href="https://wa.me/37378022501" target="_blank" id="whatsapp1">WhatsApp</a>
+      <div class="order-buttons">
+        <a href="viber://chat?number=%2B37378022501" target="_blank" class="order-btn" id="viber1">Viber</a>
+        <a href="https://wa.me/37378022501" target="_blank" class="order-btn" id="whatsapp1">WhatsApp</a>
       </div>
     </div>
 
-    <div class="beer" onclick="toggleBeerOrder(this)">
-      <img src="ultimatum.jpeg" alt="Пиво ULTIMATUM"/>
-      <h3>ULTIMATUM</h3>
-      <div class="type">Ale · Полутемное</div>
-      <div class="stats">Алк. 5.0% · IBU 25</div>
-      <p>Богатый эль с карамельными нотами и сбалансированной горчинкой</p>
+    <div class="beer-card">
+      <img src="images/ultimatum.jpeg" alt="Пиво ULTIMATUM" class="beer-image"/>
+      <h3 class="beer-title">ULTIMATUM</h3>
+      <div class="beer-type">Ale · Полутемное</div>
+      <div class="beer-stats">Алк. 5.0% · IBU 25</div>
+      <p class="beer-desc" id="ultimatum-desc">Богатый эль с карамельными нотами и сбалансированной горчинкой</p>
       
-      <div class="beer-order">
-        <a href="viber://chat?number=%2B37378022501" target="_blank" id="viber2">Viber</a>
-        <a href="https://wa.me/37378022501" target="_blank" id="whatsapp2">WhatsApp</a>
+      <div class="order-buttons">
+        <a href="viber://chat?number=%2B37378022501" target="_blank" class="order-btn" id="viber2">Viber</a>
+        <a href="https://wa.me/37378022501" target="_blank" class="order-btn" id="whatsapp2">WhatsApp</a>
       </div>
     </div>
   </div>
 
   <div class="contact">
-    <a href="viber://chat?number=%2B37378022501" target="_blank">Заказать в Viber</a>
-    <a href="https://wa.me/37378022501" target="_blank">Заказать в WhatsApp</a>
-    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank">Наш Instagram</a>
+    <a href="viber://chat?number=%2B37378022501" target="_blank" id="contact-viber">Заказать в Viber</a>
+    <a href="https://wa.me/37378022501" target="_blank" id="contact-whatsapp">Заказать в WhatsApp</a>
+    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank" id="contact-instagram">Наш Instagram</a>
   </div>
 
   <script>
+    // Языковые настройки
     const ru = {
       title: "Доставка пива кегами по 25 литров",
       price: "40 лей/литр · Бесплатная доставка",
@@ -260,59 +244,39 @@
 
     function toggleLang() {
       currentLang = currentLang === 'ru' ? 'ro' : 'ru';
+      updateLanguage();
+    }
+
+    function updateLanguage() {
       const lang = currentLang === 'ru' ? ru : ro;
       
+      // Обновление основных элементов
       document.getElementById('title').innerText = lang.title;
       document.getElementById('price').innerText = lang.price;
       
-      const links = document.querySelectorAll('.contact a');
-      links[0].innerText = lang.orderViber;
-      links[1].innerText = lang.orderWhatsapp;
-      links[2].innerText = lang.instagram;
+      // Обновление описаний пива
+      document.getElementById('helios-desc').innerText = lang.heliosDesc;
+      document.getElementById('ultimatum-desc').innerText = lang.ultimatumDesc;
       
+      // Обновление контактных кнопок
+      document.getElementById('contact-viber').innerText = lang.orderViber;
+      document.getElementById('contact-whatsapp').innerText = lang.orderWhatsapp;
+      document.getElementById('contact-instagram').innerText = lang.instagram;
+      
+      // Обновление переключателя языка
       document.querySelector('.lang-toggle').innerText = lang.langBtn;
       
-      const beerDesc = document.querySelectorAll('.beer p');
-      if (beerDesc.length >= 2) {
-        beerDesc[0].innerText = lang.heliosDesc;
-        beerDesc[1].innerText = lang.ultimatumDesc;
-      }
+      // Обновление кнопок заказа в карточках
+      const viberButtons = document.querySelectorAll('[id^="viber"]');
+      const whatsappButtons = document.querySelectorAll('[id^="whatsapp"]');
       
-      // Обновление кнопок в карточках пива
-      const beerButtons = document.querySelectorAll('.beer-order a');
-      beerButtons[0].innerText = lang.viber;
-      beerButtons[1].innerText = lang.whatsapp;
-      beerButtons[2].innerText = lang.viber;
-      beerButtons[3].innerText = lang.whatsapp;
+      viberButtons.forEach(btn => btn.innerText = lang.viber);
+      whatsappButtons.forEach(btn => btn.innerText = lang.whatsapp);
     }
 
-    function toggleBeerOrder(element) {
-      // Закрываем все открытые карточки
-      const allBeers = document.querySelectorAll('.beer');
-      allBeers.forEach(beer => {
-        if (beer !== element) {
-          beer.classList.remove('active');
-        }
-      });
-      
-      // Переключаем текущую карточку
-      element.classList.toggle('active');
-    }
-
-    // Закрытие карточки при клике вне ее
-    document.addEventListener('click', function(event) {
-      const beers = document.querySelectorAll('.beer');
-      let isClickInside = false;
-      
-      beers.forEach(beer => {
-        if (beer.contains(event.target)) {
-          isClickInside = true;
-        }
-      });
-      
-      if (!isClickInside) {
-        beers.forEach(beer => beer.classList.remove('active'));
-      }
+    // Инициализация страницы
+    document.addEventListener('DOMContentLoaded', function() {
+      updateLanguage();
     });
   </script>
 </body>
