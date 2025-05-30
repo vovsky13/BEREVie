@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Пивная доставка</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      padding: 20px;
+    }
+    .beer {
+      margin: 20px;
+    }
+    .beer img {
+      width: 200px;
+      border-radius: 10px;
+    }
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .lang-toggle {
+      margin-top: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">Доставка пива кегами по 25 литров</h1>
+  <p id="price">Цена: 40 лей/литр, доставка бесплатная</p>
+
+  <div class="beer">
+    <img src="helios.png" alt="HELIOS" />
+    <p>HELIOS (lager)</p>
+  </div>
+
+  <div class="beer">
+    <img src="ultimatum.jpeg" alt="ULTIMATUM" />
+    <p>ULTIMATUM (ale)</p>
+  </div>
+
+  <div class="contact">
+    <a href="viber://chat?number=%2B37378022501" target="_blank">Viber</a>
+    <a href="https://wa.me/37378022501" target="_blank">WhatsApp</a>
+    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank">Instagram</a>
+  </div>
+
+  <div class="lang-toggle" onclick="toggleLang()">🇷🇺 / 🇷🇴 Сменить язык</div>
+
+  <script>
+    const ru = {
+      title: "Доставка пива кегами по 25 литров",
+      price: "Цена: 40 лей/литр, доставка бесплатная"
+    };
+
+    const ro = {
+      title: "Livrare de bere la KEG de 25 litri",
+      price: "Preț: 40 lei/litru, livrare gratuită"
+    };
+
+    let currentLang = 'ru';
+
+    function toggleLang() {
+      currentLang = currentLang === 'ru' ? 'ro' : 'ru';
+      document.getElementById('title').innerText = currentLang === 'ru' ? ru.title : ro.title;
+      document.getElementById('price').innerText = currentLang === 'ru' ? ru.price : ro.price;
+    }
+  </script>
+</body>
+</html>
