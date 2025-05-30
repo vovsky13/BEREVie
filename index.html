@@ -13,6 +13,7 @@
       background-size: cover;
       text-align: center;
       padding: 20px;
+      background-color: #0d1b2a;
     }
     .beer-container {
       display: flex;
@@ -20,27 +21,45 @@
       justify-content: center;
       gap: 30px;
       margin-top: 30px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .beer {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       border-radius: 15px;
       padding: 20px;
       width: 280px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border: 2px solid #ff9e00;
+      transition: transform 0.3s ease;
+    }
+    .beer:hover {
+      transform: translateY(-10px);
+      background: rgba(30, 30, 30, 0.8);
     }
     .beer img {
       width: 100%;
       max-height: 300px;
       object-fit: contain;
       border-radius: 10px;
+      border: 1px solid #444;
     }
     .beer h3 {
       margin: 15px 0 5px;
       font-size: 1.8em;
+      color: #ff9e00;
     }
-    .beer p {
-      margin: 5px 0;
-      font-size: 1.1em;
+    .beer .type {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+    .beer .stats {
+      background: rgba(255, 158, 0, 0.2);
+      padding: 8px;
+      border-radius: 8px;
+      margin: 10px 0;
     }
     .contact {
       margin: 40px 0;
@@ -49,29 +68,33 @@
       display: inline-block;
       margin: 10px;
       padding: 12px 25px;
-      background: rgba(0, 0, 0, 0.7);
+      background: linear-gradient(45deg, #ff9e00, #ff6b00);
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-size: 1.1em;
       transition: all 0.3s ease;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .contact a:hover {
-      background: rgba(200, 150, 0, 0.8);
+      background: linear-gradient(45deg, #ff6b00, #ff9e00);
       transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
     }
     .lang-toggle {
       margin-top: 20px;
       cursor: pointer;
       font-weight: bold;
       padding: 10px 20px;
-      background: rgba(0,0,0,0.6);
+      background: rgba(255, 158, 0, 0.2);
       display: inline-block;
       border-radius: 8px;
       transition: all 0.3s ease;
+      border: 1px solid #ff9e00;
     }
     .lang-toggle:hover {
-      background: rgba(100, 100, 100, 0.8);
+      background: rgba(255, 158, 0, 0.3);
     }
     .price-tag {
       font-size: 1.4em;
@@ -83,9 +106,29 @@
       margin: 20px auto;
       font-weight: bold;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border: 2px solid white;
     }
     .header {
       margin-bottom: 10px;
+      padding: 20px;
+      background: rgba(13, 27, 42, 0.8);
+      border-radius: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 2px solid #ff9e00;
+    }
+    h1 {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    @media (max-width: 600px) {
+      .beer-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .beer {
+        width: 90%;
+      }
     }
   </style>
 </head>
@@ -99,15 +142,17 @@
     <div class="beer">
       <img src="helios.png" alt="Пиво HELIOS"/>
       <h3>HELIOS</h3>
-      <p>Lager · Светлое</p>
-      <p>Алк. 5.2% · IBU 18</p>
+      <div class="type">Lager · Светлое</div>
+      <div class="stats">Алк. 4.5% · IBU 18</div>
+      <p>Освежающий светлый лагер с мягким вкусом и хмельным ароматом</p>
     </div>
 
     <div class="beer">
       <img src="ultimatum.jpeg" alt="Пиво ULTIMATUM"/>
       <h3>ULTIMATUM</h3>
-      <p>Ale · Тёмное</p>
-      <p>Алк. 6.0% · IBU 25</p>
+      <div class="type">Ale · Полутемное</div>
+      <div class="stats">Алк. 5.0% · IBU 25</div>
+      <p>Богатый эль с карамельными нотами и сбалансированной горчинкой</p>
     </div>
   </div>
 
@@ -126,7 +171,9 @@
       orderViber: "Заказать в Viber",
       orderWhatsapp: "Заказать в WhatsApp",
       instagram: "Наш Instagram",
-      langBtn: "🇷🇺 Русский | 🇷🇴 Română"
+      langBtn: "🇷🇺 Русский | 🇷🇴 Română",
+      heliosDesc: "Освежающий светлый лагер с мягким вкусом и хмельным ароматом",
+      ultimatumDesc: "Богатый эль с карамельными нотами и сбалансированной горчинкой"
     };
 
     const ro = {
@@ -135,7 +182,9 @@
       orderViber: "Comandă pe Viber",
       orderWhatsapp: "Comandă pe WhatsApp",
       instagram: "Instagram-ul nostru",
-      langBtn: "🇷🇴 Română | 🇷🇺 Русский"
+      langBtn: "🇷🇴 Română | 🇷🇺 Русский",
+      heliosDesc: "Lager luminos răcoritor cu gust moale și aromă de hamei",
+      ultimatumDesc: "Ale bogat cu note de caramel și amărățuire echilibrată"
     };
 
     let currentLang = 'ru';
@@ -153,6 +202,13 @@
       links[2].innerText = lang.instagram;
       
       document.querySelector('.lang-toggle').innerText = lang.langBtn;
+      
+      // Обновление описаний пива
+      const beerDesc = document.querySelectorAll('.beer p');
+      if (beerDesc.length >= 2) {
+        beerDesc[0].innerText = lang.heliosDesc;
+        beerDesc[1].innerText = lang.ultimatumDesc;
+      }
     }
   </script>
 </body>
