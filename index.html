@@ -14,68 +14,145 @@
       text-align: center;
       padding: 20px;
     }
+    .beer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
     .beer {
-      margin: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
     .beer img {
-      width: 200px;
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
       border-radius: 10px;
+    }
+    .beer h3 {
+      margin: 15px 0 5px;
+      font-size: 1.8em;
+    }
+    .beer p {
+      margin: 5px 0;
+      font-size: 1.1em;
+    }
+    .contact {
+      margin: 40px 0;
     }
     .contact a {
       display: inline-block;
       margin: 10px;
-      padding: 10px 15px;
-      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 25px;
+      background: rgba(0, 0, 0, 0.7);
       color: white;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+    }
+    .contact a:hover {
+      background: rgba(200, 150, 0, 0.8);
+      transform: translateY(-3px);
     }
     .lang-toggle {
       margin-top: 20px;
       cursor: pointer;
       font-weight: bold;
+      padding: 10px 20px;
+      background: rgba(0,0,0,0.6);
+      display: inline-block;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .lang-toggle:hover {
+      background: rgba(100, 100, 100, 0.8);
+    }
+    .price-tag {
+      font-size: 1.4em;
+      background: linear-gradient(to right, #f8b500, #f8a400);
+      color: #222;
+      padding: 8px 20px;
+      border-radius: 30px;
+      display: inline-block;
+      margin: 20px auto;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .header {
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <h1 id="title">Доставка пива кегами по 25 литров</h1>
-  <p id="price">Цена: 40 лей/литр, доставка бесплатная</p>
-
-  <div class="beer">
-    <img src="helios.png" alt="HELIOS" />
-    <p>HELIOS (lager)</p>
+  <div class="header">
+    <h1 id="title">Доставка пива кегами по 25 литров</h1>
+    <div class="price-tag" id="price">40 лей/литр · Бесплатная доставка</div>
   </div>
 
-  <div class="beer">
-    <img src="ultimatum.jpeg" alt="ULTIMATUM" />
-    <p>ULTIMATUM (ale)</p>
+  <div class="beer-container">
+    <div class="beer">
+      <img src="helios.png" alt="Пиво HELIOS"/>
+      <h3>HELIOS</h3>
+      <p>Lager · Светлое</p>
+      <p>Алк. 5.2% · IBU 18</p>
+    </div>
+
+    <div class="beer">
+      <img src="ultimatum.jpeg" alt="Пиво ULTIMATUM"/>
+      <h3>ULTIMATUM</h3>
+      <p>Ale · Тёмное</p>
+      <p>Алк. 6.0% · IBU 25</p>
+    </div>
   </div>
 
   <div class="contact">
-    <a href="viber://chat?number=%2B37378022501" target="_blank">Viber</a>
-    <a href="https://wa.me/37378022501" target="_blank">WhatsApp</a>
-    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank">Instagram</a>
+    <a href="viber://chat?number=%2B37378022501" target="_blank">Заказать в Viber</a>
+    <a href="https://wa.me/37378022501" target="_blank">Заказать в WhatsApp</a>
+    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank">Наш Instagram</a>
   </div>
 
-  <div class="lang-toggle" onclick="toggleLang()">🇷🇺 / 🇷🇴 Сменить язык</div>
+  <div class="lang-toggle" onclick="toggleLang()">🇷🇺 Русский | 🇷🇴 Română</div>
 
   <script>
     const ru = {
       title: "Доставка пива кегами по 25 литров",
-      price: "Цена: 40 лей/литр, доставка бесплатная"
+      price: "40 лей/литр · Бесплатная доставка",
+      orderViber: "Заказать в Viber",
+      orderWhatsapp: "Заказать в WhatsApp",
+      instagram: "Наш Instagram",
+      langBtn: "🇷🇺 Русский | 🇷🇴 Română"
     };
 
     const ro = {
       title: "Livrare de bere la KEG de 25 litri",
-      price: "Preț: 40 lei/litru, livrare gratuită"
+      price: "40 lei/litru · Livrare gratuită",
+      orderViber: "Comandă pe Viber",
+      orderWhatsapp: "Comandă pe WhatsApp",
+      instagram: "Instagram-ul nostru",
+      langBtn: "🇷🇴 Română | 🇷🇺 Русский"
     };
 
     let currentLang = 'ru';
 
     function toggleLang() {
       currentLang = currentLang === 'ru' ? 'ro' : 'ru';
-      document.getElementById('title').innerText = currentLang === 'ru' ? ru.title : ro.title;
-      document.getElementById('price').innerText = currentLang === 'ru' ? ru.price : ro.price;
+      const lang = currentLang === 'ru' ? ru : ro;
+      
+      document.getElementById('title').innerText = lang.title;
+      document.getElementById('price').innerText = lang.price;
+      
+      const links = document.querySelectorAll('.contact a');
+      links[0].innerText = lang.orderViber;
+      links[1].innerText = lang.orderWhatsapp;
+      links[2].innerText = lang.instagram;
+      
+      document.querySelector('.lang-toggle').innerText = lang.langBtn;
     }
   </script>
 </body>
