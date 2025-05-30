@@ -12,7 +12,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       color: white;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/background.jpg') no-repeat center center fixed;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('background.jpg') no-repeat center center fixed;
       background-size: cover;
       text-align: center;
       padding: 20px;
@@ -180,11 +180,11 @@
 
   <div class="beer-container">
     <div class="beer-card">
-      <img src="images/helios.png" alt="Пиво HELIOS" class="beer-image"/>
+      <img src="helios.png" alt="Пиво HELIOS" class="beer-image"/>
       <h3 class="beer-title">HELIOS</h3>
       <div class="beer-type">Lager · Светлое</div>
       <div class="beer-stats">Алк. 4.5% · IBU 18</div>
-      <p class="beer-desc" id="helios-desc">Освежающий светлый лагер с мягким вкусом и хмельным ароматом</p>
+      <p class="beer-desc">Освежающий светлый лагер с мягким вкусом и хмельным ароматом</p>
       
       <div class="order-buttons">
         <a href="viber://chat?number=%2B37378022501" target="_blank" class="order-btn" id="viber1">Viber</a>
@@ -193,11 +193,11 @@
     </div>
 
     <div class="beer-card">
-      <img src="images/ultimatum.jpeg" alt="Пиво ULTIMATUM" class="beer-image"/>
+      <img src="ultimatum.jpeg" alt="Пиво ULTIMATUM" class="beer-image"/>
       <h3 class="beer-title">ULTIMATUM</h3>
       <div class="beer-type">Ale · Полутемное</div>
       <div class="beer-stats">Алк. 5.0% · IBU 25</div>
-      <p class="beer-desc" id="ultimatum-desc">Богатый эль с карамельными нотами и сбалансированной горчинкой</p>
+      <p class="beer-desc">Богатый эль с карамельными нотами и сбалансированной горчинкой</p>
       
       <div class="order-buttons">
         <a href="viber://chat?number=%2B37378022501" target="_blank" class="order-btn" id="viber2">Viber</a>
@@ -207,9 +207,9 @@
   </div>
 
   <div class="contact">
-    <a href="viber://chat?number=%2B37378022501" target="_blank" id="contact-viber">Заказать в Viber</a>
-    <a href="https://wa.me/37378022501" target="_blank" id="contact-whatsapp">Заказать в WhatsApp</a>
-    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank" id="contact-instagram">Наш Instagram</a>
+    <a href="viber://chat?number=%2B37378022501" target="_blank">Заказать в Viber</a>
+    <a href="https://wa.me/37378022501" target="_blank">Заказать в WhatsApp</a>
+    <a href="https://www.instagram.com/marsselitaxi?igsh=ZDdmNzh4YXA5Z3E4" target="_blank">Наш Instagram</a>
   </div>
 
   <script>
@@ -250,32 +250,42 @@
     function updateLanguage() {
       const lang = currentLang === 'ru' ? ru : ro;
       
-      // Обновление заголовка и цены
+      // Обновление основных элементов
       document.getElementById('title').innerText = lang.title;
       document.getElementById('price').innerText = lang.price;
       
-      // Обновление описаний пива
-      document.getElementById('helios-desc').innerText = lang.heliosDesc;
-      document.getElementById('ultimatum-desc').innerText = lang.ultimatumDesc;
-      
-      // Обновление кнопок внизу
-      document.getElementById('contact-viber').innerText = lang.orderViber;
-      document.getElementById('contact-whatsapp').innerText = lang.orderWhatsapp;
-      document.getElementById('contact-instagram').innerText = lang.instagram;
+      // Обновление контактных кнопок
+      const contactLinks = document.querySelectorAll('.contact a');
+      contactLinks[0].innerText = lang.orderViber;
+      contactLinks[1].innerText = lang.orderWhatsapp;
+      contactLinks[2].innerText = lang.instagram;
       
       // Обновление переключателя языка
       document.querySelector('.lang-toggle').innerText = lang.langBtn;
       
+      // Обновление описаний пива
+      const beerDescs = document.querySelectorAll('.beer-desc');
+      if (beerDescs.length >= 2) {
+        beerDescs[0].innerText = lang.heliosDesc;
+        beerDescs[1].innerText = lang.ultimatumDesc;
+      }
+      
       // Обновление кнопок заказа в карточках
-      document.getElementById('viber1').innerText = lang.viber;
-      document.getElementById('whatsapp1').
-        innerText = lang.whatsapp;
-      document.getElementById('viber2').innerText = lang.viber;
-      document.getElementById('whatsapp2').innerText = lang.whatsapp;
+      const orderBtns = document.querySelectorAll('.order-btn');
+      for (let i = 0; i < orderBtns.length; i++) {
+        if (i % 2 === 0) {
+          orderBtns[i].
+            innerText = lang.viber;
+        } else {
+          orderBtns[i].innerText = lang.whatsapp;
+        }
+      }
     }
 
-    // Инициализация языка при загрузке
-    document.addEventListener('DOMContentLoaded', updateLanguage);
+    // Инициализация страницы
+    document.addEventListener('DOMContentLoaded', function() {
+      updateLanguage();
+    });
   </script>
 </body>
 </html>
