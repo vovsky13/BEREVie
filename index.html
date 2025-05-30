@@ -250,7 +250,7 @@
     function updateLanguage() {
       const lang = currentLang === 'ru' ? ru : ro;
       
-      // Обновление основных элементов
+      // Обновление заголовка и цены
       document.getElementById('title').innerText = lang.title;
       document.getElementById('price').innerText = lang.price;
       
@@ -258,7 +258,7 @@
       document.getElementById('helios-desc').innerText = lang.heliosDesc;
       document.getElementById('ultimatum-desc').innerText = lang.ultimatumDesc;
       
-      // Обновление контактных кнопок
+      // Обновление кнопок внизу
       document.getElementById('contact-viber').innerText = lang.orderViber;
       document.getElementById('contact-whatsapp').innerText = lang.orderWhatsapp;
       document.getElementById('contact-instagram').innerText = lang.instagram;
@@ -267,17 +267,15 @@
       document.querySelector('.lang-toggle').innerText = lang.langBtn;
       
       // Обновление кнопок заказа в карточках
-      const viberButtons = document.querySelectorAll('[id^="viber"]');
-      const whatsappButtons = document.querySelectorAll('[id^="whatsapp"]');
-      
-      viberButtons.forEach(btn => btn.innerText = lang.viber);
-      whatsappButtons.forEach(btn => btn.innerText = lang.whatsapp);
+      document.getElementById('viber1').innerText = lang.viber;
+      document.getElementById('whatsapp1').
+        innerText = lang.whatsapp;
+      document.getElementById('viber2').innerText = lang.viber;
+      document.getElementById('whatsapp2').innerText = lang.whatsapp;
     }
 
-    // Инициализация страницы
-    document.addEventListener('DOMContentLoaded', function() {
-      updateLanguage();
-    });
+    // Инициализация языка при загрузке
+    document.addEventListener('DOMContentLoaded', updateLanguage);
   </script>
 </body>
 </html>
